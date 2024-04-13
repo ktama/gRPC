@@ -1,17 +1,30 @@
 syntax = "proto3";
 
-option csharp_namespace = "GrpcExample";
+option csharp_namespace = "GrpcDevice";
 
 import "google/protobuf/empty.proto";
 
-service Example {
-  // マシン情報を取得
-  rpc GetMachineInfo (google.protobuf.Empty) returns (ExampleReply);
+service Device {
+	// デバイス情報を取得
+	rpc GetDeviceInfo (google.protobuf.Empty) returns (DeviceInfoResponse);
+	rpc GetDeviceLog (DeviceLogRequest) returns (DeviceLogResponse);
 }
 
-message ExampleReply {
-  // コンピュータ名
-  string MachineName = 1;
-  // ユーザ名
-  string UserName = 2;
+message DeviceInfoResponse {
+    // デバイス名
+    string DeviceName = 1;
+    // ユーザ名
+    string UserName = 2;
+}
+
+message DeviceLogRequest {
+	// レベル
+	uint32 Level = 1;
+}
+
+message DeviceLogResponse {
+	// レベル
+	uint32 Level = 1;
+	// メッセージ
+	string Message = 2;
 }

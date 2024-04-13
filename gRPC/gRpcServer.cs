@@ -1,17 +1,25 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using GrpcExample;
+using GrpcDevice;
 
 namespace gRPC
 {
-    internal class gRpcServer : Example.ExampleBase
+    internal class gRpcServer : Device.DeviceBase
     {
-        public override Task<ExampleReply> GetMachineInfo(Empty request, ServerCallContext context)
+        public override Task<DeviceInfoResponse> GetDeviceInfo(Empty request, ServerCallContext context)
         {
-            return Task.FromResult(new ExampleReply
+            return Task.FromResult(new DeviceInfoResponse
             {
-                MachineName = Environment.MachineName,
+                DeviceName = Environment.MachineName,
                 UserName = Environment.UserName
+            });
+        }
+        public override Task<DeviceLogResponse> GetDeviceLog(DeviceLogRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(new DeviceLogResponse
+            {
+                Level = request.Level,
+                Message = $"Message{request.Level}"
             });
         }
     }
