@@ -14,10 +14,12 @@ namespace gRPC
                 UserName = Environment.UserName
             });
         }
-        public override Task<DeviceLogResponse> GetDeviceLog(DeviceLogRequest request, ServerCallContext context)
+
+        public override Task<DeviceSysLogResponse> GetDeviceLog(DeviceSysLogRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new DeviceLogResponse
+            return Task.FromResult(new DeviceSysLogResponse
             {
+                Ticks = DateTime.Now.Ticks,
                 Level = request.Level,
                 Message = $"Message{request.Level}"
             });

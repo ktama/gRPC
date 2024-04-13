@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 service Device {
 	// デバイス情報を取得
 	rpc GetDeviceInfo (google.protobuf.Empty) returns (DeviceInfoResponse);
-	rpc GetDeviceLog (DeviceLogRequest) returns (DeviceLogResponse);
+	rpc GetDeviceLog (DeviceSysLogRequest) returns (DeviceSysLogResponse);
 }
 
 message DeviceInfoResponse {
@@ -17,14 +17,16 @@ message DeviceInfoResponse {
     string UserName = 2;
 }
 
-message DeviceLogRequest {
+message DeviceSysLogRequest {
 	// レベル
 	uint32 Level = 1;
 }
 
-message DeviceLogResponse {
+message DeviceSysLogResponse {
+	// Epochからの経過時間
+	int64 Ticks = 1;
 	// レベル
-	uint32 Level = 1;
+	uint32 Level = 2;
 	// メッセージ
-	string Message = 2;
+	string Message = 3;
 }
